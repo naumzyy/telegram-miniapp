@@ -1,157 +1,45 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Texas Hold'em Poker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0b3d91;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    .cards-container {
-      margin: 20px auto;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-    .card {
-      width: 60px;
-      height: 90px;
-      border-radius: 8px;
-      background-color: white;
-      color: black;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 90px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-      user-select: none;
-    }
-    .red {
-      color: red;
-    }
-    button {
-      margin-top: 25px;
-      padding: 12px 25px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      background-color: #e91e63;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #c2185b;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Poker App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-green-900 flex items-center justify-center min-h-screen">
+  <div class="poker-table relative w-full max-w-6xl mx-auto rounded-full border-8 border-yellow-700">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-white text-xl font-bold">Bank: <span id="pot">0</span>$</div>
+    </div>
 
-  <h1>Texas Hold'em Poker</h1>
+    <!-- Player -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-white">
+      <div id="player-cards" class="flex justify-center space-x-2 mt-2"></div>
+      <p>You (Bet: <span id="player-bet">0</span>$)</p>
+    </div>
 
-  <h2>Твои карты</h2>
-  <div id="player-cards" class="cards-container"></div>
+    <!-- Bot Players -->
+    <div class="absolute top-4 left-10 text-white text-center">
+      <p>Bot 1</p>
+      <div id="bot1-cards" class="flex justify-center space-x-2 mt-2"></div>
+    </div>
+    <div class="absolute top-4 right-10 text-white text-center">
+      <p>Bot 2</p>
+      <div id="bot2-cards" class="flex justify-center space-x-2 mt-2"></div>
+    </div>
 
-  <h2>Общие карты</h2>
-  <div id="community-cards" class="cards-container"></div>
+    <!-- Community Cards -->
+    <div id="community-cards" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-2"></div>
 
-  <button id="next-stage-btn">Начать игру</button>
+    <!-- Controls -->
+    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center text-white">
+      <button onclick="placeBet()" class="bg-yellow-600 px-4 py-2 rounded-lg mr-2">Bet</button>
+      <button onclick="nextRound()" class="bg-blue-600 px-4 py-2 rounded-lg">Next Round</button>
+    </div>
+  </div>
 
-  <script>
-    const suits = ['♠', '♥', '♦', '♣'];
-    const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-
-    let deck = [];
-    let playerCards = [];
-    let communityCards = [];
-    let stage = 0; // 0: Pre-flop, 1: Flop, 2: Turn, 3: River
-
-    function createDeck() {
-      deck = [];
-      for (let suit of suits) {
-        for (let rank of ranks) {
-          deck.push({suit, rank});
-        }
-      }
-    }
-
-    function shuffleDeck() {
-      for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-      }
-    }
-
-    function drawCard() {
-      return deck.pop();
-    }
-
-    function cardToHTML(card) {
-      const isRed = card.suit === '♥' || card.suit === '♦';
-      return `<div class="card ${isRed ? 'red' : ''}">${card.rank}${card.suit}</div>`;
-    }
-
-    function showCards(containerId, cards) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = cards.map(cardToHTML).join('');
-    }
-
-    function startGame() {
-      createDeck();
-      shuffleDeck();
-      playerCards = [drawCard(), drawCard()];
-      communityCards = [];
-      stage = 0;
-
-      showCards('player-cards', playerCards);
-      showCards('community-cards', communityCards);
-
-      document.getElementById('next-stage-btn').textContent = 'Флоп';
-    }
-
-    function nextStage() {
-      if (stage === 0) {
-        // Флоп: 3 карты
-        communityCards = [drawCard(), drawCard(), drawCard()];
-        stage = 1;
-        document.getElementById('next-stage-btn').textContent = 'Терн';
-      } else if (stage === 1) {
-        // Терн: 1 карта
-        communityCards.push(drawCard());
-        stage = 2;
-        document.getElementById('next-stage-btn').textContent = 'Ривер';
-      } else if (stage === 2) {
-        // Ривер: 1 карта
-        communityCards.push(drawCard());
-        stage = 3;
-        document.getElementById('next-stage-btn').textContent = 'Игра закончена';
-      } else {
-        // Игра закончена — сброс
-        startGame();
-        return;
-      }
-      showCards('community-cards', communityCards);
-    }
-
-    document.getElementById('next-stage-btn').addEventListener('click', () => {
-      if (stage === 0) {
-        nextStage(); // перейти к Флопу
-      } else if (stage >= 1 && stage < 3) {
-        nextStage(); // Терн, Ривер
-      } else {
-        startGame(); // сброс игры
-      }
-    });
-
-    // Инициализируем игру при загрузке страницы
-    startGame();
-  </script>
-
+  <script src="main.js"></script>
 </body>
 </html>
 
