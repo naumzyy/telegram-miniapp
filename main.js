@@ -1,102 +1,77 @@
-const suits = ['S', 'H', 'D', 'C'];
-const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-
-let deck = [];
-let playerCards = [];
-let bot1Cards = [];
-let bot2Cards = [];
-let communityCards = [];
-let pot = 0;
-let playerBet = 0;
+const suits = ["clubs", "diamonds", "hearts", "spades"];
+const values = [
+  "2", "3", "4", "5", "6", "7", "8", "9", "10",
+  "jack", "queen", "king", "ace"
+];
 
 function createDeck() {
-  deck = [];
+  const deck = [];
   for (let suit of suits) {
-    for (let rank of ranks) {
-      deck.push(`${rank}${suit}`);
+    for (let value of values) {
+      deck.push(`${value}_of_${suit}`);
     }
   }
+  return deck.sort(() => Math.random() - 0.5);
 }
 
-function shuffleDeck() {
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
+function createCardImg(cardName) {
+  const img = document.createElement("img");
+  img.src = `cards/png/${cardName}.png`;
+  img.className = "card";
+  return img;
 }
 
-function getCardImage(card) {
-  return `cards/${card}.png`;
+function clearTable() {
+  document.querySelectorAll(".hand, #community-cards").forEach(el => el.innerHTML = "");
 }
 
-function renderCards(cards, containerId, reveal = true) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  cards.forEach(card => {
-    const img = document.createElement('img');
-    img.className = 'card-img';
-    img.src = reveal ? getCardImage(card) : 'cards/back.png';
-    container.appendChild(img);
+function dealHand(playerId, cards, delay = 0) {
+  const handDiv = document.querySelector(`#${playerId} .hand`);
+  cards.forEach((card, i) => {
+    setTimeout(() => {
+      handDiv.appendChild(createCardImg(card));
+    }, delay + i * 300);
   });
 }
 
-async function dealCardsAnimated() {
-  renderCards([], 'player-cards');
-  renderCards([], 'bot1-cards');
-  renderCards([], 'bot2-cards');
-  renderCards([], 'community-cards');
+function dealCommunity(cards, delay = 0) {
+  const commDiv = document.getElementById("community-cards");
+  cards.forEach((card, i) => {
+    setTimeout(() => {
+      commDiv.appendChild(createCardImg(card));
+    }, delay + i * 400);
+  });
+}
 
-  // Deal 2 cards each with delay
-  for (let i = 0; i < 2; i++) {
-    playerCards.push(deck.pop());
-    renderCards(playerCards, 'player-cards');
+function startGame() {
+  clearTable();
+  const deck = createDeck();
 
-    await delay(400);
-    bot1Cards.push(deck.pop());
-    renderCards(bot1Cards, 'bot1-cards', false);
+  const playerHand = [deck.pop(), deck.pop()];
+  const bot1 = [deck.pop(), deck.pop()];
+  const bot2 = [deck.pop(), deck.pop()];
+  const bot3 = [deck.pop(), deck.pop()];
 
-    await delay(400);
-    bot2Cards.push(deck.pop());
-    renderCards(bot2Cards, 'bot2-cards', false);
+  const flop = [deck.pop(), deck.pop(), deck.pop()];
+  const turn = deck.pop();
+  const river = deck.pop();
 
-    await delay(400);
-  }
+  // Deal cards with animation
+  dealHand("player-1", playerHand);
+  dealHand("bot-1", bot1, 600);
+  dealHand("bot-2", bot2, 1200);
+  dealHand("bot-3", bot3, 1800);
 
   // Deal community cards
-  for (let i = 0; i < 5; i++) {
-    communityCards.push(deck.pop());
-    renderCards(communityCards.slice(0, i + 1), 'community-cards');
-    await delay(500);
-  }
+  setTimeout(() => {
+    dealCommunity(flop);
+  }, 2500);
+  setTimeout(() => {
+    dealCommunity([turn], 3000);
+  }, 3000);
+  setTimeout(() => {
+    dealCommunity([river], 3500);
+  }, 3500);
 }
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function placeBet() {
-  const betAmount = 50;
-  playerBet += betAmount;
-  pot += betAmount * 3; // You + bots
-  document.getElementById('pot').textContent = pot;
-  document.getElementById('player-bet').textContent = playerBet;
-}
-
-async function startNewGame() {
-  playerCards = [];
-  bot1Cards = [];
-  bot2Cards = [];
-  communityCards = [];
-  pot = 0;
-  playerBet = 0;
-  document.getElementById('pot').textContent = 0;
-  document.getElementById('player-bet').textContent = 0;
-  createDeck();
-  shuffleDeck();
-  await dealCardsAnimated();
-}
-
-window.onload = () => {
-  startNewGame();
-};
 

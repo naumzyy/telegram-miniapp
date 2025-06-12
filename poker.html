@@ -1,48 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Texas Hold'em Poker</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Texas Hold'em</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-green-900 flex items-center justify-center min-h-screen">
-  <div class="poker-table relative w-full max-w-6xl mx-auto rounded-full border-8 border-yellow-700">
+<body>
+  <h1>Texas Hold'em Poker</h1>
 
-    <!-- Pot Info -->
-    <div class="absolute inset-0 flex items-center justify-center z-10">
-      <div class="text-white text-xl font-bold">Bank: <span id="pot">0</span>$</div>
+  <div id="table">
+    <div id="community-cards" class="card-row"></div>
+
+    <div class="players">
+      <div id="player-1" class="player">
+        <h3>You</h3>
+        <div class="hand"></div>
+      </div>
+      <div id="bot-1" class="player bot">
+        <h3>Bot 1</h3>
+        <div class="hand"></div>
+      </div>
+      <div id="bot-2" class="player bot">
+        <h3>Bot 2</h3>
+        <div class="hand"></div>
+      </div>
+      <div id="bot-3" class="player bot">
+        <h3>Bot 3</h3>
+        <div class="hand"></div>
+      </div>
     </div>
 
-    <!-- Player -->
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-white z-10">
-      <div id="player-cards" class="flex justify-center space-x-2 mt-2"></div>
-      <p>You (Bet: <span id="player-bet">0</span>$)</p>
-    </div>
-
-    <!-- Bot Players -->
-    <div class="absolute top-4 left-10 text-white text-center z-10">
-      <p>Bot 1</p>
-      <div id="bot1-cards" class="flex justify-center space-x-2 mt-2"></div>
-    </div>
-    <div class="absolute top-4 right-10 text-white text-center z-10">
-      <p>Bot 2</p>
-      <div id="bot2-cards" class="flex justify-center space-x-2 mt-2"></div>
-    </div>
-
-    <!-- Community Cards -->
-    <div id="community-cards" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-2 z-10"></div>
-
-    <!-- Controls -->
-    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center text-white z-10">
-      <button onclick="placeBet()" class="bg-yellow-600 px-4 py-2 rounded-lg mr-2">Bet</button>
-      <button onclick="startNewGame()" class="bg-blue-600 px-4 py-2 rounded-lg">New Game</button>
-    </div>
+    <button onclick="startGame()">🎮 Начать игру</button>
   </div>
 
-  <script src="main.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
+
 
 

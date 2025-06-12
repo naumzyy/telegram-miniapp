@@ -1,14 +1,47 @@
-.poker-table {
-  background: radial-gradient(ellipse at center, #064e3b 0%, #042f2e 100%);
-  aspect-ratio: 2 / 1;
-  position: relative;
+body {
+  background-color: #35654d;
+  font-family: sans-serif;
+  color: white;
+  text-align: center;
 }
-.card-img {
-  width: 60px;
-  height: 90px;
-  transition: transform 0.3s ease;
+
+#table {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1000px;
+  background-color: #2e503a;
+  border-radius: 20px;
+  box-shadow: 0 0 20px black;
 }
-.card-img.animate {
-  transform: translateY(-10px);
+
+.card-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
+
+.card {
+  width: 80px;
+  height: 120px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px black;
+}
+
+.players {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.player {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hand {
+  display: flex;
+  justify-content: center;
+}
+
 
