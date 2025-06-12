@@ -1,14 +1,14 @@
 .poker-table {
   background: radial-gradient(ellipse at center, #064e3b 0%, #042f2e 100%);
   aspect-ratio: 2 / 1;
+  position: relative;
 }
-.card {
-  width: 50px;
-  height: 75px;
-  background-color: white;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
+.card-img {
+  width: 60px;
+  height: 90px;
+  transition: transform 0.3s ease;
 }
+.card-img.animate {
+  transform: translateY(-10px);
+}
+

@@ -1,4 +1,4 @@
-const suits = ['♠', '♥', '♣', '♦'];
+const suits = ['S', 'H', 'D', 'C'];
 const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
 let deck = [];
@@ -13,7 +13,7 @@ function createDeck() {
   deck = [];
   for (let suit of suits) {
     for (let rank of ranks) {
-      deck.push({ suit, rank });
+      deck.push(`${rank}${suit}`);
     }
   }
 }
@@ -25,50 +25,78 @@ function shuffleDeck() {
   }
 }
 
-function dealCards() {
-  createDeck();
-  shuffleDeck();
-  playerCards = [deck.pop(), deck.pop()];
-  bot1Cards = [deck.pop(), deck.pop()];
-  bot2Cards = [deck.pop(), deck.pop()];
-  communityCards = [deck.pop(), deck.pop(), deck.pop(), deck.pop(), deck.pop()];
-  pot = 0;
-  playerBet = 0;
-  renderTable();
+function getCardImage(card) {
+  return `cards/${card}.png`;
 }
 
-function renderCards(cards, containerId) {
+function renderCards(cards, containerId, reveal = true) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   cards.forEach(card => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.textContent = `${card.rank}${card.suit}`;
-    container.appendChild(div);
+    const img = document.createElement('img');
+    img.className = 'card-img';
+    img.src = reveal ? getCardImage(card) : 'cards/back.png';
+    container.appendChild(img);
   });
 }
 
-function renderTable() {
-  renderCards(playerCards, 'player-cards');
-  renderCards([{ rank: '?', suit: '?' }, { rank: '?', suit: '?' }], 'bot1-cards');
-  renderCards([{ rank: '?', suit: '?' }, { rank: '?', suit: '?' }], 'bot2-cards');
-  renderCards(communityCards.slice(0, 3), 'community-cards');
-  document.getElementById('pot').textContent = pot;
-  document.getElementById('player-bet').textContent = playerBet;
+async function dealCardsAnimated() {
+  renderCards([], 'player-cards');
+  renderCards([], 'bot1-cards');
+  renderCards([], 'bot2-cards');
+  renderCards([], 'community-cards');
+
+  // Deal 2 cards each with delay
+  for (let i = 0; i < 2; i++) {
+    playerCards.push(deck.pop());
+    renderCards(playerCards, 'player-cards');
+
+    await delay(400);
+    bot1Cards.push(deck.pop());
+    renderCards(bot1Cards, 'bot1-cards', false);
+
+    await delay(400);
+    bot2Cards.push(deck.pop());
+    renderCards(bot2Cards, 'bot2-cards', false);
+
+    await delay(400);
+  }
+
+  // Deal community cards
+  for (let i = 0; i < 5; i++) {
+    communityCards.push(deck.pop());
+    renderCards(communityCards.slice(0, i + 1), 'community-cards');
+    await delay(500);
+  }
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function placeBet() {
   const betAmount = 50;
   playerBet += betAmount;
-  pot += betAmount * 3; // You + 2 bots
+  pot += betAmount * 3; // You + bots
   document.getElementById('pot').textContent = pot;
   document.getElementById('player-bet').textContent = playerBet;
 }
 
-function nextRound() {
-  dealCards();
+async function startNewGame() {
+  playerCards = [];
+  bot1Cards = [];
+  bot2Cards = [];
+  communityCards = [];
+  pot = 0;
+  playerBet = 0;
+  document.getElementById('pot').textContent = 0;
+  document.getElementById('player-bet').textContent = 0;
+  createDeck();
+  shuffleDeck();
+  await dealCardsAnimated();
 }
 
 window.onload = () => {
-  dealCards();
+  startNewGame();
 };
+
