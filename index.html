@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Mini App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini App - Главная</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #0b3d91;
+      color: white;
+    }
+    button {
+      font-size: 24px;
+      padding: 15px 30px;
+      border-radius: 10px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #c2185b;
+    }
+  </style>
 </head>
 <body>
-    <h1>Привет из мини-аппа!</h1>
-    <button onclick="Telegram.WebApp.close()">Закрыть</button>
+  <h1>Добро пожаловать в Mini App!</h1>
+  <p>Выберите игру для начала:</p>
+  <button onclick="openPoker()">Играть в Покер</button>
+
+  <script>
+    function openPoker() {
+      // Переход на страницу с игрой покер
+      window.location.href = "poker.html";
+    }
+  </script>
 </body>
 </html>
+
