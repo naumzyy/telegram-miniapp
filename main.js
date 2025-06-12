@@ -14,10 +14,16 @@ function createDeck() {
   return deck.sort(() => Math.random() - 0.5);
 }
 
-function createCardImg(cardName) {
+function createCardImg(cardName, animated = true) {
   const img = document.createElement("img");
   img.src = `cards/png/${cardName}.png`;
   img.className = "card";
+  if (animated) {
+    img.style.transform = "scale(0)";
+    setTimeout(() => {
+      img.style.transform = "scale(1)";
+    }, 50);
+  }
   return img;
 }
 
@@ -30,7 +36,7 @@ function dealHand(playerId, cards, delay = 0) {
   cards.forEach((card, i) => {
     setTimeout(() => {
       handDiv.appendChild(createCardImg(card));
-    }, delay + i * 300);
+    }, delay + i * 400);
   });
 }
 
@@ -56,22 +62,23 @@ function startGame() {
   const turn = deck.pop();
   const river = deck.pop();
 
-  // Deal cards with animation
-  dealHand("player-1", playerHand);
-  dealHand("bot-1", bot1, 600);
-  dealHand("bot-2", bot2, 1200);
-  dealHand("bot-3", bot3, 1800);
+  // Deal cards with delay to simulate animation
+  dealHand("player-1", playerHand, 0);
+  dealHand("bot-1", bot1, 800);
+  dealHand("bot-2", bot2, 1600);
+  dealHand("bot-3", bot3, 2400);
 
-  // Deal community cards
+  // Community cards
   setTimeout(() => {
     dealCommunity(flop);
-  }, 2500);
+  }, 3400);
   setTimeout(() => {
-    dealCommunity([turn], 3000);
-  }, 3000);
+    dealCommunity([turn], 4700);
+  }, 4700);
   setTimeout(() => {
-    dealCommunity([river], 3500);
-  }, 3500);
+    dealCommunity([river], 5500);
+  }, 5500);
 }
+
 
 

@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Texas Hold'em</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Texas Hold'em Poker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Texas Hold'em Poker</h1>
-
+  <h1>Texas Hold'em</h1>
   <div id="table">
+    <div id="deck">
+      <img src="cards/png/back.png" class="card back" />
+    </div>
+
     <div id="community-cards" class="card-row"></div>
 
     <div class="players">
@@ -16,15 +19,15 @@
         <h3>You</h3>
         <div class="hand"></div>
       </div>
-      <div id="bot-1" class="player bot">
+      <div id="bot-1" class="player">
         <h3>Bot 1</h3>
         <div class="hand"></div>
       </div>
-      <div id="bot-2" class="player bot">
+      <div id="bot-2" class="player">
         <h3>Bot 2</h3>
         <div class="hand"></div>
       </div>
-      <div id="bot-3" class="player bot">
+      <div id="bot-3" class="player">
         <h3>Bot 3</h3>
         <div class="hand"></div>
       </div>
@@ -36,6 +39,7 @@
   <script src="game.js"></script>
 </body>
 </html>
+
 
 
 
