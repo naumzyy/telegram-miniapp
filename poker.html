@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Texas Hold'em Poker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0b3d91;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .cards-container {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .card {
+      width: 60px;
+      height: 90px;
+      border-radius: 8px;
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 90px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      user-select: none;
+    }
+    .red {
+      color: red;
+    }
+    button {
+      margin-top: 25px;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Texas Hold'em Poker</h1>
+
+  <h2>Твои карты</h2>
+  <div id="player-cards" class="cards-container"></div>
+
+  <h2>Общие карты</h2>
+  <div id="community-cards" class="cards-container"></div>
+
+  <button id="next-stage-btn">Начать игру</button>
+
+  <script>
+    const suits = ['♠', '♥', '♦', '♣'];
+    const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+    let deck = [];
+    let playerCards = [];
+    let communityCards = [];
+    let stage = 0; // 0: Pre-flop, 1: Flop, 2: Turn, 3: River
+
+    function createDeck() {
+      deck = [];
+      for (let suit of suits) {
+        for (let rank of ranks) {
+          deck.push({suit, rank});
+        }
+      }
+    }
+
+    function shuffleDeck() {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+    }
+
+    function drawCard() {
+      return deck.pop();
+    }
+
+    function cardToHTML(card) {
+      const isRed = card.suit === '♥' || card.suit === '♦';
+      return `<div class="card ${isRed ? 'red' : ''}">${card.rank}${card.suit}</div>`;
+    }
+
+    function showCards(containerId, cards) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = cards.map(cardToHTML).join('');
+    }
+
+    function startGame() {
+      createDeck();
+      shuffleDeck();
+      playerCards = [drawCard(), drawCard()];
+      communityCards = [];
+      stage = 0;
+
+      showCards('player-cards', playerCards);
+      showCards('community-cards', communityCards);
+
+      document.getElementById('next-stage-btn').textContent = 'Флоп';
+    }
+
+    function nextStage() {
+      if (stage === 0) {
+        // Флоп: 3 карты
+        communityCards = [drawCard(), drawCard(), drawCard()];
+        stage = 1;
+        document.getElementById('next-stage-btn').textContent = 'Терн';
+      } else if (stage === 1) {
+        // Терн: 1 карта
+        communityCards.push(drawCard());
+        stage = 2;
+        document.getElementById('next-stage-btn').textContent = 'Ривер';
+      } else if (stage === 2) {
+        // Ривер: 1 карта
+        communityCards.push(drawCard());
+        stage = 3;
+        document.getElementById('next-stage-btn').textContent = 'Игра закончена';
+      } else {
+        // Игра закончена — сброс
+        startGame();
+        return;
+      }
+      showCards('community-cards', communityCards);
+    }
+
+    document.getElementById('next-stage-btn').addEventListener('click', () => {
+      if (stage === 0) {
+        nextStage(); // перейти к Флопу
+      } else if (stage >= 1 && stage < 3) {
+        nextStage(); // Терн, Ривер
+      } else {
+        startGame(); // сброс игры
+      }
+    });
+
+    // Инициализируем игру при загрузке страницы
+    startGame();
+  </script>
+
+</body>
+</html>
+
