@@ -9,14 +9,16 @@
 </head>
 <body>
   <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
-  <div class="top-bar">
-    <div class="avatar"></div>
-    <div class="user-info">
-      <h2>David</h2>
-      <div class="currency">
-        <span>$106</span>
-        <span>$3,415</span>
+  <div class="top-bar" style="justify-content: space-between;">
+    <div class="user-info" style="display: flex; align-items: center;">
+      <div class="avatar"></div>
+      <div>
+        <h2>David</h2>
       </div>
+    </div>
+    <div class="balance" style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-weight: bold; font-size: 18px;">$106</span>
+      <button style="padding: 4px 10px; font-size: 18px;">+</button>
     </div>
   </div>
 
@@ -35,10 +37,10 @@
       <li><i>🎲</i> Ещё игры</li>
     </ul>
 
-    <!-- Бесплатно (покер) -->
-    <div id="free" style="display:none">
-      <h1>Покер: Техасский Холдем</h1>
-      <button onclick="location.href='pocker.html'">🎮 Перейти в игру</button>
+    <!-- Добби (например, бесплатные игры) -->
+    <div id="lobbie" style="display:none">
+      <h1>Лобби</h1>
+      <p>Здесь может быть подборка игр, бонусы, или витрина.</p>
     </div>
 
     <!-- Приват -->
@@ -46,20 +48,13 @@
       <h2>Приватные комнаты</h2>
       <p>Здесь будет список приватных игр.</p>
     </div>
-
-    <!-- Создать игру -->
-    <div id="create" style="display:none">
-      <h2>Создание игры</h2>
-      <p>Форма создания игры появится здесь.</p>
-    </div>
   </div>
 
   <!-- НИЖНИЕ ВКЛАДКИ -->
   <nav class="bottom-tabs">
-    <button class="active" onclick="showTab('profile', this)">♠ Профиль</button>
-    <button onclick="showTab('free', this)">♣ Бесплатно</button>
-    <button onclick="showTab('private', this)">♥ Приватные</button>
-    <button onclick="showTab('create', this)">♦ Создать игру</button>
+    <button class="active" onclick="showTab('lobbie', this)">✨ Добби</button>
+    <button onclick="showTab('private', this)">♥ Приват</button>
+    <button onclick="showTab('profile', this)">♠ Профиль</button>
   </nav>
 
   <script>
@@ -72,6 +67,9 @@
       document.querySelectorAll('.bottom-tabs button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
+
+    // Показываем вкладку "Добби" по умолчанию
+    showTab('lobbie', document.querySelector('.bottom-tabs button'));
   </script>
 </body>
 </html>
