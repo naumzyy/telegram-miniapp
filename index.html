@@ -2,51 +2,103 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mini App - Главная</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Главная</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 5vw;
-      background-color: #0b3d91;
-      color: white;
-    }
-    h1 {
-      font-size: 2em;
-    }
-    .game-button {
-      font-size: 20px;
-      padding: 15px 30px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: none;
-      background-color: #e91e63;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 100%;
-      max-width: 300px;
-    }
-    .game-button:hover {
-      background-color: #c2185b;
-    }
-  </style>
 </head>
 <body>
-  <h1>Добро пожаловать в Mini App!</h1>
-  <p>Выберите игру для начала:</p>
-  <button class="game-button" onclick="openPoker()">🃏 Играть в Покер</button>
+  <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
+  <div class="top-bar">
+    <div class="avatar"></div>
+    <div class="user-info">
+      <h2>David</h2>
+      <div class="currency">
+        <span>$106</span>
+        <span>$3,415</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- КОНТЕНТ -->
+  <div id="page-content">
+    <!-- По умолчанию профиль -->
+    <ul class="menu" id="profile">
+      <li><i>📰</i> Новости</li>
+      <li><i>👥</i> Друзья</li>
+      <li><i>🎒</i> Предметы <span class="count">5</span></li>
+      <li><i>🏆</i> Доска почета</li>
+      <li><i>⭐</i> Достижения <span class="count">6 / 50</span></li>
+      <li><i>⚙️</i> Настройки</li>
+      <li><i>📤</i> Поделиться</li>
+      <li><i>❓</i> Правила</li>
+      <li><i>🎲</i> Ещё игры</li>
+    </ul>
+
+    <!-- Бесплатно -->
+    <div id="free" style="display:none">
+      <h1>Покер: Техасский Холдем</h1>
+      <button onclick="startGame()">🎮 Начать игру</button>
+      <div id="table">
+        <div id="deck">
+          <img src="cards/png/back.png" class="card back" />
+        </div>
+        <div id="community-cards" class="card-row"></div>
+        <div class="players">
+          <div id="player-1" class="player">
+            <h3>Вы</h3>
+            <div class="hand"></div>
+          </div>
+          <div id="bot-1" class="player">
+            <h3>Бот 1</h3>
+            <div class="hand"></div>
+          </div>
+          <div id="bot-2" class="player">
+            <h3>Бот 2</h3>
+            <div class="hand"></div>
+          </div>
+          <div id="bot-3" class="player">
+            <h3>Бот 3</h3>
+            <div class="hand"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Приват -->
+    <div id="private" style="display:none">
+      <h2>Приватные комнаты</h2>
+      <p>Здесь будет список приватных игр.</p>
+    </div>
+
+    <!-- Создать игру -->
+    <div id="create" style="display:none">
+      <h2>Создание игры</h2>
+      <p>Форма создания игры появится здесь.</p>
+    </div>
+  </div>
+
+  <!-- НИЖНИЕ ВКЛАДКИ -->
+  <nav class="bottom-tabs">
+    <button class="active" onclick="showTab('profile', this)">♠ Профиль</button>
+    <button onclick="showTab('free', this)">♣ Бесплатно</button>
+    <button onclick="showTab('private', this)">♥ Приватные</button>
+    <button onclick="showTab('create', this)">♦ Создать игру</button>
+  </nav>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    document.body.style.backgroundColor = tg.themeParams.bg_color || "#0b3d91";
-    document.body.style.color = tg.themeParams.text_color || "white";
 
-    function openPoker() {
-      window.location.href = "poker.html";
+    function showTab(tabId, btn) {
+      document.querySelectorAll('#page-content > *').forEach(el => el.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      document.querySelectorAll('.bottom-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function startGame() {
+      alert("Пока логика игры не реализована!");
     }
   </script>
 </body>
