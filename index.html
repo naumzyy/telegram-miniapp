@@ -18,14 +18,23 @@
     </div>
     <div class="balance" style="display: flex; align-items: center; gap: 8px;">
       <span style="font-weight: bold; font-size: 18px;">$106</span>
-      <button style="padding: 4px 10px; font-size: 18px;">+</button>
+      <button id="topup-button">+</button>
     </div>
   </div>
 
   <!-- КОНТЕНТ -->
   <div id="page-content">
-    <!-- Профиль -->
-    <ul class="menu" id="profile">
+    <div id="lobbie">
+      <h1>Лобби</h1>
+      <p>Здесь может быть подборка игр, бонусы или витрина.</p>
+    </div>
+
+    <div id="private" style="display:none">
+      <h2>Приватные комнаты</h2>
+      <p>Здесь будет список приватных игр.</p>
+    </div>
+
+    <ul class="menu" id="profile" style="display:none">
       <li><i>📰</i> Новости</li>
       <li><i>👥</i> Друзья</li>
       <li><i>🎒</i> Предметы <span class="count">5</span></li>
@@ -36,23 +45,21 @@
       <li><i>❓</i> Правила</li>
       <li><i>🎲</i> Ещё игры</li>
     </ul>
+  </div>
 
-    <!-- Добби (например, бесплатные игры) -->
-    <div id="lobbie" style="display:none">
-      <h1>Лобби</h1>
-      <p>Здесь может быть подборка игр, бонусы, или витрина.</p>
-    </div>
-
-    <!-- Приват -->
-    <div id="private" style="display:none">
-      <h2>Приватные комнаты</h2>
-      <p>Здесь будет список приватных игр.</p>
+  <!-- МОДАЛКА ПОПОЛНЕНИЯ -->
+  <div id="topup-modal">
+    <div class="topup-content">
+      <h2>Пополнить баланс</h2>
+      <input type="number" id="topup-amount" placeholder="Сумма $" />
+      <button onclick="confirmTopUp()">Пополнить</button>
+      <button class="cancel" onclick="closeTopUp()">Отмена</button>
     </div>
   </div>
 
   <!-- НИЖНИЕ ВКЛАДКИ -->
   <nav class="bottom-tabs">
-    <button class="active" onclick="showTab('lobbie', this)">✨ Добби</button>
+    <button class="active" onclick="showTab('lobbie', this)">✨ Лобби</button>
     <button onclick="showTab('private', this)">♥ Приват</button>
     <button onclick="showTab('profile', this)">♠ Профиль</button>
   </nav>
@@ -68,11 +75,31 @@
       btn.classList.add('active');
     }
 
-    // Показываем вкладку "Добби" по умолчанию
+    // Показываем "Добби" по умолчанию
     showTab('lobbie', document.querySelector('.bottom-tabs button'));
+
+    // Обработчик кнопки "+"
+    document.getElementById("topup-button").addEventListener("click", () => {
+      document.getElementById("topup-modal").style.display = "flex";
+    });
+
+    function closeTopUp() {
+      document.getElementById("topup-modal").style.display = "none";
+    }
+
+    function confirmTopUp() {
+      const amount = parseFloat(document.getElementById("topup-amount").value);
+      if (isNaN(amount) || amount <= 0) {
+        alert("Введите корректную сумму");
+        return;
+      }
+      alert(`Вы пополнили счёт на $${amount.toFixed(2)}`);
+      closeTopUp();
+    }
   </script>
 </body>
 </html>
+
 
 
 
