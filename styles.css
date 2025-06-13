@@ -1,77 +1,68 @@
-/* Общие стили */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fff;
-  color: #111;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+:root {
+  --bg-color: white;
+  --text-color: #222;
 }
 
-/* Верхняя панель */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3 {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
 .top-bar {
   display: flex;
   align-items: center;
-  padding: 12px 20px;
-  border-bottom: 1px solid #ddd;
-  background-color: #f9f9f9;
-  flex-shrink: 0;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ccc;
+  background: #f9f9f9;
 }
 
 .avatar {
   width: 48px;
   height: 48px;
-  background-color: #bbb;
+  background: #bbb;
   border-radius: 50%;
-  margin-right: 16px;
-  flex-shrink: 0;
+  margin-right: 15px;
 }
 
 .user-info h2 {
-  margin: 0;
+  margin: 0 0 5px 0;
+  font-size: 20px;
+}
+
+.currency span {
+  display: inline-block;
+  margin-right: 10px;
   font-weight: 600;
-  font-size: 1.3rem;
+  color: #555;
 }
 
-.currency {
-  margin-top: 4px;
-  font-size: 0.9rem;
-  color: #666;
-  display: flex;
-  gap: 12px;
-}
-
-/* Контент */
-#page-content {
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
-  flex-grow: 1;
-  width: 100%;
-}
-
-/* Меню профиля */
 .menu {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 20px 0;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  background: #fff;
 }
 
 .menu li {
+  padding: 12px 18px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 14px 20px;
-  font-size: 1rem;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
+  user-select: none;
   transition: background-color 0.2s ease;
 }
 
@@ -79,105 +70,97 @@ body {
   border-bottom: none;
 }
 
-.menu li i {
-  margin-right: 12px;
-  font-style: normal;
-  font-size: 1.2rem;
-}
-
 .menu li:hover {
   background-color: #f0f0f0;
 }
 
+.menu li i {
+  margin-right: 10px;
+  font-style: normal;
+}
+
 .count {
   margin-left: auto;
-  background-color: #007aff;
-  color: white;
-  font-weight: 600;
+  font-size: 14px;
+  background: #e0e0e0;
   padding: 2px 8px;
   border-radius: 12px;
-  font-size: 0.8rem;
+  color: #333;
+}
+
+#table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card-row, .hand {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.card {
+  width: 60px;
+  height: 90px;
+  margin: 0 6px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   user-select: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Секции */
-#free, #private, #create {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-  max-width: 600px;
-  margin: 0 auto;
+.player {
+  margin: 18px 0;
 }
 
-/* Заголовки */
-h1, h2, h3 {
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: #111;
-}
-
-p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #444;
-}
-
-/* Кнопка */
 button {
-  background-color: #007aff;
+  margin-top: 20px;
+  padding: 12px 26px;
+  font-size: 18px;
+  background-color: #0077cc;
   border: none;
-  color: white;
-  padding: 12px 24px;
-  font-size: 1.1rem;
   border-radius: 8px;
+  color: white;
   cursor: pointer;
+  font-weight: 600;
   transition: background-color 0.3s ease;
-  box-shadow: 0 3px 6px rgba(0,122,255,0.4);
-  user-select: none;
-  margin-bottom: 16px;
 }
 
 button:hover {
-  background-color: #005ecb;
+  background-color: #005fa3;
 }
 
-/* Нижняя навигация */
 .bottom-tabs {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 600px;
+  left: 0;
+  right: 0;
   background: #f9f9f9;
   border-top: 1px solid #ddd;
   display: flex;
   justify-content: space-around;
-  padding: 8px 0;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
-  flex-shrink: 0;
-  z-index: 10;
+  padding: 10px 0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
 }
 
 .bottom-tabs button {
   background: none;
   border: none;
-  color: #333;
-  font-size: 1rem;
-  padding: 6px 12px;
+  font-size: 20px;
+  color: #666;
   cursor: pointer;
-  transition: color 0.2s ease, background-color 0.2s ease;
-  border-radius: 6px;
-  user-select: none;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+  font-weight: 600;
 }
 
 .bottom-tabs button.active,
 .bottom-tabs button:hover {
-  background-color: #007aff;
-  color: white;
-  box-shadow: 0 2px 8px rgba(0,122,255,0.5);
+  color: #0077cc;
+  border-bottom: 2px solid #0077cc;
+  padding-bottom: 3px;
 }
 
 

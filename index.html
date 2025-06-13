@@ -2,13 +2,14 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Главная</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <header class="top-bar">
+  <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
+  <div class="top-bar">
     <div class="avatar"></div>
     <div class="user-info">
       <h2>David</h2>
@@ -17,9 +18,11 @@
         <span>$3,415</span>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main id="page-content">
+  <!-- КОНТЕНТ -->
+  <div id="page-content">
+    <!-- Профиль -->
     <ul class="menu" id="profile">
       <li><i>📰</i> Новости</li>
       <li><i>👥</i> Друзья</li>
@@ -32,46 +35,26 @@
       <li><i>🎲</i> Ещё игры</li>
     </ul>
 
-    <section id="free" style="display:none">
+    <!-- Бесплатно (покер) -->
+    <div id="free" style="display:none">
       <h1>Покер: Техасский Холдем</h1>
-      <button onclick="startGame()">🎮 Начать игру</button>
-      <div id="table">
-        <div id="deck">
-          <img src="cards/png/back.png" class="card back" alt="Карта рубашкой вверх" />
-        </div>
-        <div id="community-cards" class="card-row"></div>
-        <div class="players">
-          <div id="player-1" class="player">
-            <h3>Вы</h3>
-            <div class="hand"></div>
-          </div>
-          <div id="bot-1" class="player">
-            <h3>Бот 1</h3>
-            <div class="hand"></div>
-          </div>
-          <div id="bot-2" class="player">
-            <h3>Бот 2</h3>
-            <div class="hand"></div>
-          </div>
-          <div id="bot-3" class="player">
-            <h3>Бот 3</h3>
-            <div class="hand"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <button onclick="location.href='pocker.html'">🎮 Перейти в игру</button>
+    </div>
 
-    <section id="private" style="display:none">
+    <!-- Приват -->
+    <div id="private" style="display:none">
       <h2>Приватные комнаты</h2>
       <p>Здесь будет список приватных игр.</p>
-    </section>
+    </div>
 
-    <section id="create" style="display:none">
+    <!-- Создать игру -->
+    <div id="create" style="display:none">
       <h2>Создание игры</h2>
       <p>Форма создания игры появится здесь.</p>
-    </section>
-  </main>
+    </div>
+  </div>
 
+  <!-- НИЖНИЕ ВКЛАДКИ -->
   <nav class="bottom-tabs">
     <button class="active" onclick="showTab('profile', this)">♠ Профиль</button>
     <button onclick="showTab('free', this)">♣ Бесплатно</button>
@@ -86,13 +69,8 @@
     function showTab(tabId, btn) {
       document.querySelectorAll('#page-content > *').forEach(el => el.style.display = 'none');
       document.getElementById(tabId).style.display = 'block';
-
       document.querySelectorAll('.bottom-tabs button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-    }
-
-    function startGame() {
-      alert("Пока логика игры не реализована!");
     }
   </script>
 </body>

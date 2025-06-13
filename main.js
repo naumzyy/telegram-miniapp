@@ -33,7 +33,7 @@ function clearTable() {
   document.querySelectorAll(".hand, #community-cards").forEach(el => el.innerHTML = "");
 }
 
-// Добавлено: скрытие карт для ботов
+// Скрываем карты ботов
 function dealHand(playerId, cards, delay = 0, hidden = false) {
   const handDiv = document.querySelector(`#${playerId} .hand`);
   cards.forEach((card, i) => {
@@ -53,7 +53,7 @@ function dealCommunity(cards, delay = 0) {
   });
 }
 
-// Асинхронная задержка
+// Задержка для анимации
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -77,7 +77,7 @@ async function startGame() {
   dealHand("bot-2", bot2, 1600, true);
   dealHand("bot-3", bot3, 2400, true);
 
-  // Выкладка community карт
+  // Выложить community cards с задержкой
   await delay(3400);
   dealCommunity(flop);
   await delay(1300);
@@ -86,17 +86,6 @@ async function startGame() {
   dealCommunity([river]);
 }
 
-// Если запускаешь в Telegram Mini App — добавь поддержку темы:
-if (window.Telegram && Telegram.WebApp) {
-  const tg = Telegram.WebApp;
-  tg.expand();
-
-  const bg = tg.themeParams.bg_color || "#1e3d2f";
-  const text = tg.themeParams.text_color || "white";
-
-  document.documentElement.style.setProperty('--tg-bg-color', bg);
-  document.documentElement.style.setProperty('--tg-text-color', text);
-}
 
 
 
