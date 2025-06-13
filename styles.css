@@ -1,115 +1,96 @@
-/* Глобальные переменные под Telegram WebApp тему */
-:root {
-  --tg-bg-color: #1e3d2f;
-  --tg-text-color: white;
-}
-
 body {
-  background-color: var(--tg-bg-color);
-  color: var(--tg-text-color);
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #2e3e50;
+  color: white;
 }
 
-h1 {
-  padding: 20px;
-  font-size: 2em;
-}
-
-/* Стол */
-#table {
-  background-color: #35654d;
-  border-radius: 20px;
-  padding: 20px;
-  max-width: 1100px;
-  margin: auto;
-  box-shadow: 0 0 30px #000;
-  position: relative;
-}
-
-/* Общие карты */
-.card-row {
+.top-bar {
   display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-/* Карты */
-.card {
-  width: 80px;
-  height: 120px;
-  margin: 0 5px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease;
-  position: relative;
-}
-.card:hover {
-  transform: scale(1.05);
-}
-.card.back {
-  width: 90px;
-  height: 135px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Игроки */
-.players {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
-.player {
-  margin: 10px;
-}
-.hand {
-  display: flex;
-  justify-content: center;
-  min-height: 130px;
-}
-
-/* Кнопка */
-button {
-  margin-top: 30px;
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(45deg, #fdd835, #ffca28);
+  align-items: center;
+  background-color: #fff;
   color: black;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-  transition: all 0.3s ease;
-}
-button:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+  padding: 10px 15px;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
-/* Адаптация для мобильных экранов */
-@media (max-width: 600px) {
-  .card {
-    width: 60px;
-    height: 90px;
-  }
-  .card.back {
-    width: 70px;
-    height: 105px;
-  }
-  button {
-    width: 90%;
-    font-size: 16px;
-  }
-  .players {
-    flex-direction: column;
-    align-items: center;
-  }
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-image: url('avatar.png'); /* Замени на путь к аватарке */
+  background-size: cover;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-info h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.currency {
+  font-size: 14px;
+  color: #e91e63;
+  display: flex;
+  gap: 10px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 80px;
+  background: #3c4d61;
+  border-radius: 12px;
+}
+
+.menu li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 16px;
+}
+
+.menu li i {
+  margin-right: 10px;
+}
+
+.menu .count {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.bottom-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background-color: white;
+  border-top: 1px solid #ccc;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.bottom-tabs button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+}
+
+.bottom-tabs .active {
+  color: red;
+  font-weight: bold;
 }
 
 
