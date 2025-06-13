@@ -79,6 +79,14 @@ async function startGame() {
   dealCommunity([river]);
 }
 
+function showTab(tabId, btn) {
+  document.querySelectorAll('#page-content > section').forEach(el => el.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+
+  document.querySelectorAll('.bottom-tabs .tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
 
 
 
