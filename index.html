@@ -20,7 +20,7 @@
 <div class="top-bar">
   <div class="user-info">
     <div class="avatar"></div>
-    <h2>David</h2>
+    <h2 class="username">David</h2>
   </div>
   <div class="balance">
     <span>$106</span>
@@ -30,21 +30,37 @@
 
 <!-- КОНТЕНТ -->
 <div id="page-content">
+  <!-- ЛОББИ -->
   <div id="lobbie">
-    <h1>Лобби</h1>
-    <div class="game-buttons">
-      <button onclick="selectGame('poker')">🃏 Покер</button>
-      <button onclick="selectGame('blackjack')">♣️ Блэк Джек</button>
-      <button onclick="selectGame('durak')">🪙 Дурак</button>
+    <div class="lobby-header">
+      <img src="banner.png" alt="promo" class="promo-banner" />
     </div>
-    <div id="tables-list"></div>
+
+    <div class="game-tabs">
+      <button onclick="selectGame('poker')" class="tab active">🃏 Покер</button>
+      <button onclick="selectGame('blackjack')" class="tab">♣️ Блэк Джек</button>
+      <button onclick="selectGame('durak')" class="tab">🪙 Дурак</button>
+    </div>
+
+    <div id="tables-list" class="game-list"></div>
+
+    <div class="how-to-play">
+      <div class="icon">💡</div>
+      <div>
+        <strong>Как играть в покер</strong><br />
+        <small>Знай, как выиграть</small>
+      </div>
+      <div class="arrow">➤</div>
+    </div>
   </div>
 
+  <!-- ПРИВАТНЫЕ -->
   <div id="private" style="display:none">
     <h2>Приватные комнаты</h2>
     <p>Здесь будет список приватных игр.</p>
   </div>
 
+  <!-- ПРОФИЛЬ -->
   <ul class="menu" id="profile" style="display:none">
     <li><i>📰</i> Новости</li>
     <li><i>👥</i> Друзья</li>
@@ -79,7 +95,6 @@
   const tg = window.Telegram.WebApp;
   tg.expand();
 
-  // Splash screen
   setTimeout(() => {
     document.getElementById('splash-screen').style.display = 'none';
   }, 1500);
@@ -119,11 +134,17 @@
     };
     const list = tables[game] || [];
     const container = document.getElementById('tables-list');
-    container.innerHTML = `<h3>Доступные столы: ${game}</h3>` + list.map(t => `<div class="table-item">${t}</div>`).join('');
+    container.innerHTML = list.map(t => `<div class="table-item">${t}</div>`).join('');
+
+    document.querySelectorAll('.game-tabs .tab').forEach(btn => btn.classList.remove('active'));
+    const index = ['poker', 'blackjack', 'durak'].indexOf(game);
+    document.querySelectorAll('.game-tabs .tab')[index].classList.add('active');
   }
 </script>
+
 </body>
 </html>
+
 
 
 
