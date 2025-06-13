@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Покер Техасский Холдем | Stolovka</title>
+  <title>Покер Техасский Холдем</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -69,7 +69,6 @@
       background-color: #0077cc;
       color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
 
     button:hover {
@@ -115,8 +114,8 @@
     const tg = window.Telegram?.WebApp;
     if (tg) {
       tg.expand();
-      const bg = tg.themeParams.bg_color || '#00695c';
-      const text = tg.themeParams.text_color || 'white';
+      const bg = tg.themeParams.bg_color || '#ffffff';
+      const text = tg.themeParams.text_color || '#000000';
       document.documentElement.style.setProperty('--bg-color', bg);
       document.documentElement.style.setProperty('--text-color', text);
       document.body.style.backgroundColor = bg;
@@ -125,6 +124,7 @@
   </script>
 </body>
 </html>
+
 
 
 

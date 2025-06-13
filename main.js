@@ -1,8 +1,5 @@
 const suits = ["clubs", "diamonds", "hearts", "spades"];
-const values = [
-  "2", "3", "4", "5", "6", "7", "8", "9", "10",
-  "jack", "queen", "king", "ace"
-];
+const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"];
 
 function createDeck() {
   const deck = [];
@@ -11,7 +8,7 @@ function createDeck() {
       deck.push(`${value}_of_${suit}`);
     }
   }
-  return deck.sort(() => Math.random() - 0.5); // тасуем
+  return deck.sort(() => Math.random() - 0.5);
 }
 
 function createCardImg(cardName, animated = true) {
@@ -33,7 +30,6 @@ function clearTable() {
   document.querySelectorAll(".hand, #community-cards").forEach(el => el.innerHTML = "");
 }
 
-// Скрываем карты ботов
 function dealHand(playerId, cards, delay = 0, hidden = false) {
   const handDiv = document.querySelector(`#${playerId} .hand`);
   cards.forEach((card, i) => {
@@ -53,7 +49,6 @@ function dealCommunity(cards, delay = 0) {
   });
 }
 
-// Задержка для анимации
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -71,13 +66,11 @@ async function startGame() {
   const turn = deck.pop();
   const river = deck.pop();
 
-  // Раздача карт игрокам с задержками
   dealHand("player-1", playerHand, 0);
   dealHand("bot-1", bot1, 800, true);
   dealHand("bot-2", bot2, 1600, true);
   dealHand("bot-3", bot3, 2400, true);
 
-  // Выложить community cards с задержкой
   await delay(3400);
   dealCommunity(flop);
   await delay(1300);
