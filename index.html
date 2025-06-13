@@ -4,25 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mini App - Главная</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px;
+      padding: 5vw;
       background-color: #0b3d91;
       color: white;
     }
-    button {
-      font-size: 24px;
+    h1 {
+      font-size: 2em;
+    }
+    .game-button {
+      font-size: 20px;
       padding: 15px 30px;
+      margin: 10px 0;
       border-radius: 10px;
       border: none;
       background-color: #e91e63;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 100%;
+      max-width: 300px;
     }
-    button:hover {
+    .game-button:hover {
       background-color: #c2185b;
     }
   </style>
@@ -30,14 +37,17 @@
 <body>
   <h1>Добро пожаловать в Mini App!</h1>
   <p>Выберите игру для начала:</p>
-  <button onclick="openPoker()">Играть в Покер</button>
+  <button class="game-button" onclick="openPoker()">🃏 Играть в Покер</button>
 
   <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    document.body.style.backgroundColor = tg.themeParams.bg_color || "#0b3d91";
+    document.body.style.color = tg.themeParams.text_color || "white";
+
     function openPoker() {
-      // Переход на страницу с игрой покер
       window.location.href = "poker.html";
     }
   </script>
 </body>
 </html>
-

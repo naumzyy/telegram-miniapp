@@ -1,6 +1,12 @@
+/* Глобальные переменные под Telegram WebApp тему */
+:root {
+  --tg-bg-color: #1e3d2f;
+  --tg-text-color: white;
+}
+
 body {
-  background-color: #1e3d2f;
-  color: white;
+  background-color: var(--tg-bg-color);
+  color: var(--tg-text-color);
   font-family: 'Segoe UI', sans-serif;
   text-align: center;
   margin: 0;
@@ -9,8 +15,10 @@ body {
 
 h1 {
   padding: 20px;
+  font-size: 2em;
 }
 
+/* Стол */
 #table {
   background-color: #35654d;
   border-radius: 20px;
@@ -21,12 +29,14 @@ h1 {
   position: relative;
 }
 
+/* Общие карты */
 .card-row {
   display: flex;
   justify-content: center;
   margin: 20px 0;
 }
 
+/* Карты */
 .card {
   width: 80px;
   height: 120px;
@@ -36,7 +46,9 @@ h1 {
   transition: transform 0.3s ease;
   position: relative;
 }
-
+.card:hover {
+  transform: scale(1.05);
+}
 .card.back {
   width: 90px;
   height: 135px;
@@ -46,32 +58,59 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
+/* Игроки */
 .players {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 40px;
 }
-
 .player {
   margin: 10px;
 }
-
 .hand {
   display: flex;
   justify-content: center;
   min-height: 130px;
 }
 
+/* Кнопка */
 button {
   margin-top: 30px;
   padding: 15px 30px;
   font-size: 18px;
   border: none;
   border-radius: 10px;
-  background-color: gold;
+  background: linear-gradient(45deg, #fdd835, #ffca28);
   color: black;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
 }
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+/* Адаптация для мобильных экранов */
+@media (max-width: 600px) {
+  .card {
+    width: 60px;
+    height: 90px;
+  }
+  .card.back {
+    width: 70px;
+    height: 105px;
+  }
+  button {
+    width: 90%;
+    font-size: 16px;
+  }
+  .players {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 
 

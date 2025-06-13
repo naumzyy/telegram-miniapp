@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Texas Hold'em Poker</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Покер Техасский Холдем</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #00695c;
+      color: white;
+      margin: 0;
+      padding: 10px;
+    }
+    h1 {
+      margin-top: 10px;
+    }
+    #table {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .card-row, .hand {
+      display: flex;
+      justify-content: center;
+      margin: 10px;
+    }
+    .card {
+      width: 60px;
+      height: 90px;
+      margin: 5px;
+    }
+    .player {
+      margin: 15px 0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #e91e63;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c2185b;
+    }
+  </style>
 </head>
 <body>
-  <h1>Texas Hold'em</h1>
+  <h1>Покер: Техасский Холдем</h1>
+  <button onclick="startGame()">🎮 Начать игру</button>
+
   <div id="table">
     <div id="deck">
       <img src="cards/png/back.png" class="card back" />
@@ -16,29 +64,37 @@
 
     <div class="players">
       <div id="player-1" class="player">
-        <h3>You</h3>
+        <h3>Вы</h3>
         <div class="hand"></div>
       </div>
       <div id="bot-1" class="player">
-        <h3>Bot 1</h3>
+        <h3>Бот 1</h3>
         <div class="hand"></div>
       </div>
       <div id="bot-2" class="player">
-        <h3>Bot 2</h3>
+        <h3>Бот 2</h3>
         <div class="hand"></div>
       </div>
       <div id="bot-3" class="player">
-        <h3>Bot 3</h3>
+        <h3>Бот 3</h3>
         <div class="hand"></div>
       </div>
     </div>
-
-    <button onclick="startGame()">🎮 Начать игру</button>
   </div>
 
-  <script src="game.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    document.body.style.backgroundColor = tg.themeParams.bg_color || "#00695c";
+    document.body.style.color = tg.themeParams.text_color || "white";
+
+    function startGame() {
+      alert("Пока логика игры не реализована!");
+    }
+  </script>
 </body>
 </html>
+
 
 
 
