@@ -2,19 +2,24 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Главная</title>
+  <title>Stolovka</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- ЗАГРУЗКА -->
+  <div id="splash-screen">
+    <div class="logo">Stolovka</div>
+    <div class="loading-text">Загрузка...</div>
+  </div>
+
   <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
   <div class="top-bar" style="justify-content: space-between;">
     <div class="user-info" style="display: flex; align-items: center;">
       <div class="avatar"></div>
-      <div>
-        <h2>David</h2>
-      </div>
+      <div><h2>David</h2></div>
     </div>
     <div class="balance" style="display: flex; align-items: center; gap: 8px;">
       <span style="font-weight: bold; font-size: 18px;">$106</span>
@@ -26,7 +31,16 @@
   <div id="page-content">
     <div id="lobbie">
       <h1>Лобби</h1>
-      <p>Здесь может быть подборка игр, бонусы или витрина.</p>
+
+      <!-- Выбор игры -->
+      <div class="game-selector">
+        <button onclick="selectGame('poker')">🃏 Покер</button>
+        <button onclick="selectGame('blackjack')">🖤 Блэк Джек</button>
+        <button onclick="selectGame('durak')">🤪 Дурак</button>
+      </div>
+
+      <!-- Столы для "Дурак" -->
+      <div id="tables-list" class="tables-container" style="display: none;"></div>
     </div>
 
     <div id="private" style="display:none">
@@ -68,6 +82,12 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("splash-screen").style.display = "none";
+      }, 1000);
+    });
+
     function showTab(tabId, btn) {
       document.querySelectorAll('#page-content > *').forEach(el => el.style.display = 'none');
       document.getElementById(tabId).style.display = 'block';
@@ -75,10 +95,8 @@
       btn.classList.add('active');
     }
 
-    // Показываем "Добби" по умолчанию
     showTab('lobbie', document.querySelector('.bottom-tabs button'));
 
-    // Обработчик кнопки "+"
     document.getElementById("topup-button").addEventListener("click", () => {
       document.getElementById("topup-modal").style.display = "flex";
     });
@@ -96,9 +114,33 @@
       alert(`Вы пополнили счёт на $${amount.toFixed(2)}`);
       closeTopUp();
     }
+
+    function selectGame(game) {
+      const tableList = document.getElementById("tables-list");
+      tableList.innerHTML = "";
+      tableList.style.display = (game === "durak") ? "flex" : "none";
+
+      if (game === "durak") {
+        for (let i = 1; i <= 5; i++) {
+          const card = document.createElement("div");
+          card.className = "table-card";
+          card.innerHTML = `<span>Стол #${i}</span><button>Присоединиться</button>`;
+          tableList.appendChild(card);
+        }
+      }
+
+      if (game === "poker") {
+        window.location.href = "pocker.html";
+      }
+
+      if (game === "blackjack") {
+        alert("Блэк Джек в разработке!");
+      }
+    }
   </script>
 </body>
 </html>
+
 
 
 
