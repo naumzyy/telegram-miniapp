@@ -4,60 +4,238 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Главная</title>
-  <link rel="stylesheet" href="style.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    /* Общие стили */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Верхняя панель */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid #ddd;
+      background-color: #f9f9f9;
+      flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      background-color: #bbb;
+      border-radius: 50%;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .user-info h2 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .currency {
+      margin-top: 4px;
+      font-size: 0.9rem;
+      color: #666;
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Контент */
+    #page-content {
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      flex-grow: 1;
+      width: 100%;
+    }
+
+    /* Меню профиля */
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      background: #fff;
+    }
+
+    .menu li {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      font-size: 1rem;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .menu li:last-child {
+      border-bottom: none;
+    }
+
+    .menu li i {
+      margin-right: 12px;
+      font-style: normal;
+      font-size: 1.2rem;
+    }
+
+    .menu li:hover {
+      background-color: #f0f0f0;
+    }
+
+    .count {
+      margin-left: auto;
+      background-color: #007aff;
+      color: white;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      user-select: none;
+    }
+
+    /* Секции */
+    #free, #private, #create {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Заголовки */
+    h1, h2, h3 {
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #111;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #444;
+    }
+
+    /* Кнопка */
+    button {
+      background-color: #007aff;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,122,255,0.4);
+      user-select: none;
+      margin-bottom: 16px;
+    }
+
+    button:hover {
+      background-color: #005ecb;
+    }
+
+    /* Нижняя навигация */
+    .bottom-tabs {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 600px;
+      background: #f9f9f9;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .bottom-tabs button {
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 1rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      border-radius: 6px;
+      user-select: none;
+    }
+
+    .bottom-tabs button.active,
+    .bottom-tabs button:hover {
+      background-color: #007aff;
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,122,255,0.5);
+    }
+  </style>
 </head>
 <body>
-  <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
   <header class="top-bar">
-    <div class="avatar" aria-label="Аватар пользователя"></div>
+    <div class="avatar"></div>
     <div class="user-info">
       <h2>David</h2>
-      <div class="currency" aria-label="Баланс пользователя">
-        <span title="Основной баланс">$106</span>
-        <span title="Дополнительный баланс">$3,415</span>
+      <div class="currency">
+        <span>$106</span>
+        <span>$3,415</span>
       </div>
     </div>
   </header>
 
-  <!-- КОНТЕНТ -->
   <main id="page-content">
-    <!-- Профиль (по умолчанию отображается) -->
-    <ul class="menu" id="profile" role="navigation" aria-label="Меню профиля">
+    <ul class="menu" id="profile">
       <li><i>📰</i> Новости</li>
       <li><i>👥</i> Друзья</li>
-      <li><i>🎒</i> Предметы <span class="count" aria-label="Количество предметов">5</span></li>
+      <li><i>🎒</i> Предметы <span class="count">5</span></li>
       <li><i>🏆</i> Доска почета</li>
-      <li><i>⭐</i> Достижения <span class="count" aria-label="Достижения">6 / 50</span></li>
+      <li><i>⭐</i> Достижения <span class="count">6 / 50</span></li>
       <li><i>⚙️</i> Настройки</li>
       <li><i>📤</i> Поделиться</li>
       <li><i>❓</i> Правила</li>
       <li><i>🎲</i> Ещё игры</li>
     </ul>
 
-    <!-- Бесплатно -->
-    <section id="free" style="display:none" aria-label="Бесплатные игры">
+    <section id="free" style="display:none">
       <h1>Покер: Техасский Холдем</h1>
-      <button type="button" onclick="startGame()">🎮 Начать игру</button>
-      <div id="table" aria-live="polite">
-        <div id="deck" aria-label="Колода карт">
-          <img src="cards/png/back.png" alt="Карта рубашкой вверх" class="card back" />
+      <button onclick="startGame()">🎮 Начать игру</button>
+      <div id="table">
+        <div id="deck">
+          <img src="cards/png/back.png" class="card back" alt="Карта рубашкой вверх" />
         </div>
-        <div id="community-cards" class="card-row" aria-label="Общие карты"></div>
-        <div class="players" aria-label="Игроки">
-          <div id="player-1" class="player" aria-label="Вы">
+        <div id="community-cards" class="card-row"></div>
+        <div class="players">
+          <div id="player-1" class="player">
             <h3>Вы</h3>
-            <div class="hand" aria-label="Ваша рука"></div>
+            <div class="hand"></div>
           </div>
-          <div id="bot-1" class="player" aria-label="Бот 1">
+          <div id="bot-1" class="player">
             <h3>Бот 1</h3>
             <div class="hand"></div>
           </div>
-          <div id="bot-2" class="player" aria-label="Бот 2">
+          <div id="bot-2" class="player">
             <h3>Бот 2</h3>
             <div class="hand"></div>
           </div>
-          <div id="bot-3" class="player" aria-label="Бот 3">
+          <div id="bot-3" class="player">
             <h3>Бот 3</h3>
             <div class="hand"></div>
           </div>
@@ -65,25 +243,22 @@
       </div>
     </section>
 
-    <!-- Приват -->
-    <section id="private" style="display:none" aria-label="Приватные комнаты">
+    <section id="private" style="display:none">
       <h2>Приватные комнаты</h2>
       <p>Здесь будет список приватных игр.</p>
     </section>
 
-    <!-- Создать игру -->
-    <section id="create" style="display:none" aria-label="Создание игры">
+    <section id="create" style="display:none">
       <h2>Создание игры</h2>
       <p>Форма создания игры появится здесь.</p>
     </section>
   </main>
 
-  <!-- НИЖНИЕ ВКЛАДКИ -->
-  <nav class="bottom-tabs" role="tablist" aria-label="Навигация по страницам">
-    <button class="active" type="button" role="tab" aria-selected="true" aria-controls="profile" onclick="showTab('profile', this)">♠ Профиль</button>
-    <button type="button" role="tab" aria-selected="false" aria-controls="free" onclick="showTab('free', this)">♣ Бесплатно</button>
-    <button type="button" role="tab" aria-selected="false" aria-controls="private" onclick="showTab('private', this)">♥ Приватные</button>
-    <button type="button" role="tab" aria-selected="false" aria-controls="create" onclick="showTab('create', this)">♦ Создать игру</button>
+  <nav class="bottom-tabs">
+    <button class="active" onclick="showTab('profile', this)">♠ Профиль</button>
+    <button onclick="showTab('free', this)">♣ Бесплатно</button>
+    <button onclick="showTab('private', this)">♥ Приватные</button>
+    <button onclick="showTab('create', this)">♦ Создать игру</button>
   </nav>
 
   <script>
@@ -94,13 +269,8 @@
       document.querySelectorAll('#page-content > *').forEach(el => el.style.display = 'none');
       document.getElementById(tabId).style.display = 'block';
 
-      // Управление атрибутами aria-selected для вкладок
-      document.querySelectorAll('.bottom-tabs button').forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
+      document.querySelectorAll('.bottom-tabs button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
     }
 
     function startGame() {
@@ -109,4 +279,5 @@
   </script>
 </body>
 </html>
+
 
