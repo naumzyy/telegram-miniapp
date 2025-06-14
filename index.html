@@ -6,145 +6,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
-<!-- ШАПКА + БАННЕР -->
-<div class="header-banner">
-  <div class="header-top">
-    <div class="avatar-name">
-      <div class="avatar" style="background-image:url('https://via.placeholder.com/40');"></div>
-      <div>
-        <div class="username">n</div>
-        <div class="user-id">ID:219001</div>
+<div id="tabs-container">
+
+  <!-- Вкладка Лобби с шапкой -->
+  <div id="lobby-tab" class="tab-content">
+    <div class="header-banner">
+      <div class="header-top">
+        <div class="avatar-name">
+          <div class="avatar" style="background-image: url('avatar.jpg');"></div>
+          <div>
+            <div class="username">n</div>
+            <div class="user-id">ID:219001</div>
+          </div>
+        </div>
+        <div class="header-balance">
+          <div class="bonus-icon">🎁</div>
+          <div class="balance-box">$1.1 <div class="topup-icon">+</div></div>
+        </div>
+      </div>
+      <div class="promo-small">
+        <img src="banner.jpg" alt="Banner">
       </div>
     </div>
-    <div class="header-balance">
-      <div class="bonus-icon">🎁</div>
-      <div class="balance-box">
-        <span>$1.1</span>
-        <button class="topup-icon">+</button>
-      </div>
+
+    <!-- ИГРЫ -->
+    <div class="game-tabs-alt">
+      <button class="game-btn active" onclick="selectGame(this)">Покер</button>
+      <button class="game-btn" onclick="selectGame(this)">Блек Джек</button>
+      <button class="game-btn" onclick="selectGame(this)">Дурак</button>
     </div>
-  </div>
 
-  <div class="promo-small">
-    <img src="icons/banner.png" alt="Invite Friends" />
-  </div>
-</div>
-
-<!-- КНОПКИ ИГР -->
-<div class="game-tabs-alt">
-  <button onclick="selectGame('poker')" class="game-btn active">Покер</button>
-  <button onclick="selectGame('blackjack')" class="game-btn">Блэк Джек</button>
-  <button onclick="selectGame('durak')" class="game-btn">Дурак</button>
-</div>
-
-<!-- КОНТЕНТ -->
-<div id="page-content">
-  <!-- ЛОББИ -->
-  <div id="lobbie">
-    <div id="tables-list" class="game-list"></div>
-
-    <div class="how-to-play">
-      <div class="icon">💡</div>
-      <div>
-        <strong>Как играть в покер</strong><br />
-        <small>Знай, как выиграть</small>
-      </div>
-      <div class="arrow">➤</div>
+    <!-- Список столов -->
+    <div class="game-list" id="table-container">
+      <div class="table-item">Texas Table</div>
+      <div class="table-item">Omaha Table</div>
     </div>
   </div>
 
-  <!-- ПРИВАТНЫЕ -->
-  <div id="private" style="display:none">
-    <h2>Приватные комнаты</h2>
-    <p>Здесь будет список приватных игр.</p>
+  <!-- Другие вкладки -->
+  <div id="cash-tab" class="tab-content" style="display:none;">
+    <h2 style="padding: 16px;">Кэш игры</h2>
   </div>
 
-  <!-- ПРОФИЛЬ -->
-  <ul class="menu" id="profile" style="display:none">
-    <li><i>📰</i> Новости</li>
-    <li><i>👥</i> Друзья</li>
-    <li><i>🎒</i> Предметы <span class="count">5</span></li>
-    <li><i>🏆</i> Почёт</li>
-    <li><i>⭐</i> Достижения</li>
-    <li><i>⚙️</i> Настройки</li>
-    <li><i>📤</i> Поделиться</li>
-    <li><i>❓</i> Правила</li>
-    <li><i>🎲</i> Ещё</li>
-  </ul>
-</div>
+  <div id="mtt-tab" class="tab-content" style="display:none;">
+    <h2 style="padding: 16px;">MTT турниры</h2>
+  </div>
 
-<!-- МОДАЛКА ПОПОЛНЕНИЯ -->
-<div id="topup-modal">
-  <div class="topup-content">
-    <h2>Пополнить баланс</h2>
-    <input type="number" id="topup-amount" placeholder="Сумма $" />
-    <button onclick="confirmTopUp()">Пополнить</button>
-    <button class="cancel" onclick="closeTopUp()">Отмена</button>
+  <div id="more-tab" class="tab-content" style="display:none;">
+    <h2 style="padding: 16px;">Больше информации</h2>
   </div>
 </div>
 
-<!-- НИЖНИЕ ВКЛАДКИ -->
-<nav class="bottom-tabs">
-  <button class="active" onclick="showTab('lobbie', this)">✨ Лобби</button>
-  <button onclick="showTab('private', this)">♥ Приват</button>
-  <button onclick="showTab('profile', this)">♠ Профиль</button>
-</nav>
+<!-- Нижние вкладки -->
+<div class="bottom-tabs">
+  <button class="tab-btn active" onclick="switchTab('lobby', this)">Хит</button>
+  <button class="tab-btn" onclick="switchTab('cash', this)">Кэш</button>
+  <button class="tab-btn" onclick="switchTab('mtt', this)">MTT</button>
+  <button class="tab-btn" onclick="switchTab('more', this)">Больше</button>
+</div>
 
 <script>
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+  function switchTab(tab, btn) {
+    const tabs = {
+      lobby: 'lobby-tab',
+      cash: 'cash-tab',
+      mtt: 'mtt-tab',
+      more: 'more-tab'
+    };
 
-  function showTab(tabId, btn) {
-    document.querySelectorAll('#page-content > *').forEach(el => el.style.display = 'none');
-    document.getElementById(tabId).style.display = 'block';
+    // Скрываем все
+    document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+
+    // Показываем активную
+    document.getElementById(tabs[tab]).style.display = 'block';
+
+    // Активная кнопка
     document.querySelectorAll('.bottom-tabs button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
 
-  showTab('lobbie', document.querySelector('.bottom-tabs button'));
-
-  document.querySelector('.topup-icon').addEventListener("click", () => {
-    document.getElementById("topup-modal").style.display = "flex";
-  });
-
-  function closeTopUp() {
-    document.getElementById("topup-modal").style.display = "none";
-  }
-
-  function confirmTopUp() {
-    const amount = parseFloat(document.getElementById("topup-amount").value);
-    if (isNaN(amount) || amount <= 0) {
-      alert("Введите корректную сумму");
-      return;
-    }
-    alert(`Вы пополнили счёт на $${amount.toFixed(2)}`);
-    closeTopUp();
-  }
-
-  function selectGame(game) {
-    const tables = {
-      durak: ['Стол #1 (2/6)', 'Стол #2 (3/6)', 'Стол #3 (ожидание)'],
-      poker: ['Texas Table', 'Omaha Table'],
-      blackjack: ['Быстрая игра', 'VIP стол'],
-    };
-    const list = tables[game] || [];
-    const container = document.getElementById('tables-list');
-    container.innerHTML = list.map(t => `<div class="table-item">${t}</div>`).join('');
-
+  function selectGame(button) {
     document.querySelectorAll('.game-btn').forEach(btn => btn.classList.remove('active'));
-    const index = ['poker', 'blackjack', 'durak'].indexOf(game);
-    document.querySelectorAll('.game-btn')[index].classList.add('active');
-  }
+    button.classList.add('active');
 
-  selectGame('poker');
+    const container = document.getElementById('table-container');
+    const game = button.innerText.trim();
+    let tables = [];
+
+    if (game === "Покер") {
+      tables = ['Texas Table', 'Omaha Table'];
+    } else if (game === "Блек Джек") {
+      tables = ['Быстрая игра', 'VIP стол'];
+    } else if (game === "Дурак") {
+      tables = ['Стол #1 (2/6)', 'Стол #2 (3/6)', 'Стол #3 (ожидание)'];
+    }
+
+    container.innerHTML = tables.map(t => `<div class="table-item">${t}</div>`).join('');
+  }
 </script>
 
 </body>
 </html>
+
 
 
 
