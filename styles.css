@@ -5,20 +5,22 @@ body {
   color: #222;
 }
 
-/* ХЭДЕР + БАННЕР */
-.header-banner {
+/* ВЕРХНЯЯ ПАНЕЛЬ + БАННЕР (lobbie-header) */
+#lobbie-header {
   background: white;
   padding: 16px;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.header-top {
+/* Верхняя панель (top-bar) */
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.avatar-name {
+/* Информация о пользователе */
+.user-info {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -38,46 +40,37 @@ body {
   font-size: 16px;
 }
 
-.user-id {
-  font-size: 13px;
-  color: #888;
-}
-
-.header-balance {
+/* Баланс */
+.balance {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.bonus-icon {
-  font-size: 20px;
-}
-
-.balance-box {
-  background: #f0f0f0;
-  padding: 6px 10px;
-  border-radius: 20px;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
-.topup-icon {
+#topup-button {
   background: #4caf50;
   color: white;
-  padding: 0 6px;
+  border: none;
   border-radius: 50%;
+  width: 28px;
+  height: 28px;
   font-weight: bold;
   cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 
-/* БАННЕР */
-.promo-small {
-  margin-top: 14px;
+/* Баннер */
+.lobby-header {
+  margin-top: 12px;
 }
 
-.promo-small img {
+.promo-banner {
   width: 100%;
   border-radius: 12px;
   object-fit: cover;
@@ -85,35 +78,34 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* ИГРОВЫЕ КНОПКИ */
-.game-tabs-alt {
+/* Вкладки игр */
+.game-tabs {
   display: flex;
   justify-content: space-around;
   background: white;
-  padding: 14px 0;
-  gap: 6px;
+  padding: 12px 0;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.game-btn {
+.game-tabs .tab {
   flex: 1;
   padding: 10px 0;
-  margin: 0 6px;
   border: none;
   border-radius: 30px;
   background: #f0f0f0;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
+  margin: 0 6px;
 }
 
-.game-btn.active {
+.game-tabs .tab.active {
   background: #2196f3;
   color: white;
 }
 
-/* СТОЛЫ */
+/* Список столов */
 .game-list {
   padding: 16px;
 }
@@ -126,9 +118,92 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   font-weight: 500;
   color: #333;
+  cursor: pointer;
+  user-select: none;
 }
 
-/* ВКЛАДКИ НИЖНИЕ */
+/* Как играть - подсказка */
+.how-to-play {
+  margin: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.how-to-play .icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.how-to-play .arrow {
+  margin-left: auto;
+  font-size: 20px;
+  color: #888;
+}
+
+/* Модальное окно пополнения */
+#topup-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.topup-content {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 280px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topup-content h2 {
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+}
+
+.topup-content input[type="number"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.topup-content button {
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #2196f3;
+  color: white;
+  transition: background 0.3s;
+}
+
+.topup-content button.cancel {
+  background: #ccc;
+  color: #333;
+}
+
+.topup-content button:hover:not(.cancel) {
+  background: #1976d2;
+}
+
+/* Нижнее меню */
 .bottom-tabs {
   position: fixed;
   bottom: 0;
@@ -139,15 +214,27 @@ body {
   border-top: 1px solid #e0e0e0;
   box-shadow: 0 -1px 5px rgba(0,0,0,0.05);
   padding: 8px 0;
+  z-index: 100;
 }
 
 .tab-btn {
   background: none;
   border: none;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   color: #666;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  user-select: none;
+}
+
+.tab-btn img {
+  width: 24px;
+  height: 24px;
 }
 
 .tab-btn.active {
@@ -155,9 +242,44 @@ body {
   font-weight: 700;
 }
 
-/* ТАБЫ КОНТЕЙНЕР */
-.tab-content {
-  padding-bottom: 70px; /* чтобы не перекрывалось нижним меню */
+/* Скрываем содержимое страниц по умолчанию */
+#page-content > div, #page-content > ul {
+  padding-bottom: 70px; /* чтобы не перекрывало нижнее меню */
+}
+
+/* Меню профиль */
+.menu {
+  list-style: none;
+  padding: 16px;
+  margin: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.menu li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.menu li:last-child {
+  border-bottom: none;
+}
+
+.menu .count {
+  background: #2196f3;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: auto;
+  font-weight: 700;
 }
 
 
