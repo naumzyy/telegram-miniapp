@@ -1,0 +1,390 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #f5f5f5;
+  color: #222;
+  overflow-x: hidden;
+}
+
+/* ВЕРХНЯЯ ПАНЕЛЬ + БАННЕР (lobbie-header) */
+#lobbie-header {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 0; /* удаляем отступы */
+  background: none; /* удаляем фон */
+  border: none; /* удаляем линию */
+  
+}
+
+
+/* Верхняя панель (top-bar) */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.02); /* максимально прозрачный чёрный */
+  color: white;
+}
+
+
+
+/* Информация о пользователе */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #ccc;
+  background-size: cover;
+  background-position: center;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+}
+
+/* Баланс */
+.balance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  color: white;
+}
+
+#topup-button {
+  background: white;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* Баннер */
+.lobby-banner {
+  position: relative;
+  width: 100%;
+  height: 160px; /* можно настроить */
+  overflow: hidden;
+}
+
+.promo-banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0; /* убираем скругление */
+  box-shadow: none; /* убираем тень */
+}
+
+/* Вкладки игр */
+.game-tabs {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.game-tabs .tab {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 30px;
+  background: #f0f0f0;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  margin: 0 6px;
+}
+
+.game-tabs .tab.active {
+  background: #2196f3;
+  color: white;
+}
+
+/* Список столов */
+.game-list {
+  padding: 16px;
+  min-height: 300px; /* ← фиксированная минимальная высота, чтобы не прыгало */
+  transition: min-height 0.3s ease; /* опционально — для плавности */
+}
+
+
+.table-item {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Как играть - подсказка */
+.how-to-play {
+  margin: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.how-to-play .icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.how-to-play .arrow {
+  margin-left: auto;
+  font-size: 20px;
+  color: #888;
+}
+
+/* Модальное окно пополнения */
+#topup-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.topup-content {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 280px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topup-content h2 {
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+}
+
+.topup-content input[type="number"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.topup-content button {
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #2196f3;
+  color: white;
+  transition: background 0.3s;
+}
+
+.topup-content button.cancel {
+  background: #ccc;
+  color: #333;
+}
+
+.topup-content button:hover:not(.cancel) {
+  background: #1976d2;
+}
+
+/* Нижнее меню */
+.bottom-tabs {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.05);
+  padding: 8px 0;
+  z-index: 100;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  user-select: none;
+}
+
+.tab-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.tab-btn.active {
+  color: #000;
+  font-weight: 700;
+}
+
+/* Скрываем содержимое страниц по умолчанию */
+#page-content > div, #page-content > ul {
+  padding-bottom: 70px; /* чтобы не перекрывало нижнее меню */
+}
+
+/* Меню профиль */
+.menu {
+  list-style: none;
+  padding: 16px;
+  margin: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.menu li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.menu li:last-child {
+  border-bottom: none;
+}
+
+.menu .count {
+  background: #2196f3;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: auto;
+  font-weight: 700;
+}
+
+/* ЗАСТАВКА (экран загрузки) */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3e1c92, #8e44ad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  z-index: 9999;
+  animation: splashFadeIn 0.5s ease-in-out;
+}
+
+#splash-screen h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  animation: splashSlideIn 1s ease-out;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#splash-screen p {
+  font-size: 18px;
+  opacity: 0.9;
+  animation: splashTextFade 1.5s ease-in;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes splashSlideIn {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes splashTextFade {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+
+/* Скрытие горизонтального скролла и стилизация вертикального */
+html, body {
+  overflow-x: hidden;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox */
+}
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 4px; /* Тонкий скролл */
+  height: 0px; /* Убирает горизонтальный скролл, если появляется */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.05); /* Едва заметный ползунок */
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+
