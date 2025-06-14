@@ -357,6 +357,24 @@ body {
   to { opacity: 0.9; }
 }
 
+/* Скрываем скроллбар в WebKit (Chrome, Safari, Edge) */
+#page-content::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* прозрачный фон */
+}
+
+/* Для Firefox скрываем скроллбар */
+#page-content {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE и Edge */
+  overflow-y: scroll; /* скролл вертикальный */
+}
+
+/* Для Firefox (скрыть скроллбар) */
+#page-content::-moz-scrollbar {
+  display: none;
+}
+
 
 
 
