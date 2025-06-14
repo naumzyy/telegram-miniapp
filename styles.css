@@ -282,6 +282,55 @@ body {
   font-weight: 700;
 }
 
+/* ЗАСТАВКА (экран загрузки) */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3e1c92, #8e44ad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  z-index: 9999;
+  animation: splashFadeIn 0.5s ease-in-out;
+}
+
+#splash-screen h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  animation: splashSlideIn 1s ease-out;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#splash-screen p {
+  font-size: 18px;
+  opacity: 0.9;
+  animation: splashTextFade 1.5s ease-in;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes splashSlideIn {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes splashTextFade {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+
 
 
 
