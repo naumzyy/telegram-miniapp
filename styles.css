@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -127,7 +131,10 @@ body {
 /* Список столов */
 .game-list {
   padding: 16px;
+  min-height: 300px; /* ← фиксированная минимальная высота, чтобы не прыгало */
+  transition: min-height 0.3s ease; /* опционально — для плавности */
 }
+
 
 .table-item {
   background: white;
