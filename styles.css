@@ -6,31 +6,26 @@ body {
   font-size: 16px;
 }
 
-#splash-screen {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+/* ШАПКА + БАННЕР */
+.header-banner {
+  background: #2e2d83;
+  color: white;
+  padding: 12px 16px 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  position: relative;
 }
 
-.top-bar {
+.header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.user-info {
+.avatar-name {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .avatar {
@@ -44,65 +39,87 @@ body {
 
 .username {
   font-weight: 600;
-  font-size: 17px;
+  font-size: 16px;
 }
 
-.balance {
+.user-id {
+  font-size: 13px;
+  color: #bbb;
+}
+
+.header-balance {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: bold;
 }
 
-#topup-button {
+.bonus-icon {
   font-size: 18px;
-  padding: 4px 10px;
-  border: none;
+}
+
+.balance-box {
+  background: white;
+  color: #333;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.topup-icon {
   background: #4caf50;
+  border: none;
+  border-radius: 50%;
   color: white;
-  border-radius: 6px;
+  font-size: 16px;
+  width: 22px;
+  height: 22px;
+  line-height: 20px;
+  text-align: center;
   cursor: pointer;
 }
 
-#lobbie {
-  padding-bottom: 80px;
+/* Маленький баннер */
+.promo-small {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-/* Баннер */
-.lobby-header {
-  padding: 0 16px;
-}
-
-.promo-banner {
+.promo-small img {
   width: 100%;
+  max-height: 120px;
   border-radius: 12px;
-  margin: 16px 0;
   object-fit: cover;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Вкладки выбора игр */
-.game-tabs {
+/* Новые кнопки выбора игр */
+.game-tabs-alt {
   display: flex;
   gap: 8px;
-  padding: 0 16px 16px;
+  padding: 10px 16px;
   overflow-x: auto;
+  background: #fff;
 }
 
-.game-tabs .tab {
+.game-btn {
   flex: 1;
-  padding: 10px;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-weight: 600;
   background: #f0f0f0;
   border: none;
   border-radius: 20px;
-  font-weight: 600;
-  font-size: 15px;
-  white-space: nowrap;
   cursor: pointer;
-  transition: background 0.3s;
+  white-space: nowrap;
+  transition: background 0.2s;
 }
 
-.game-tabs .tab.active {
+.game-btn.active {
   background: #2196f3;
   color: white;
 }
@@ -110,9 +127,10 @@ body {
 /* Столы */
 .game-list {
   padding: 0 16px;
+  margin-top: 10px;
 }
 
-.game-list .table-item {
+.table-item {
   background: white;
   border-radius: 12px;
   padding: 14px;
@@ -145,7 +163,7 @@ body {
   color: #999;
 }
 
-/* Меню */
+/* Меню профиля */
 .menu {
   list-style: none;
   padding: 16px;
@@ -166,7 +184,7 @@ body {
   color: #888;
 }
 
-/* Модалка */
+/* Модалка пополнения */
 #topup-modal {
   position: fixed;
   top: 0; left: 0;
@@ -214,7 +232,7 @@ body {
   color: white;
 }
 
-/* Вкладки снизу */
+/* Нижние вкладки */
 .bottom-tabs {
   position: fixed;
   bottom: 0;
