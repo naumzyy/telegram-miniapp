@@ -7,7 +7,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: #f5f5f5;
   color: #222;
-  overflow-x: hidden;
 }
 
 /* ВЕРХНЯЯ ПАНЕЛЬ + БАННЕР (lobbie-header) */
@@ -18,7 +17,7 @@ body {
   padding: 0; /* удаляем отступы */
   background: none; /* удаляем фон */
   border: none; /* удаляем линию */
-  
+  overflow-x: hidden;
 }
 
 
@@ -359,28 +358,15 @@ body {
   to { opacity: 0.9; }
 }
 
-/* Скрытие горизонтального скролла и стилизация вертикального */
-html, body {
-  overflow-x: hidden;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: transparent transparent; /* Firefox */
+/* Для всех браузеров */
+body, html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE и Edge */
 }
 
-/* Chrome, Safari, Edge */
-::-webkit-scrollbar {
-  width: 4px; /* Тонкий скролл */
-  height: 0px; /* Убирает горизонтальный скролл, если появляется */
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.05); /* Едва заметный ползунок */
-  border-radius: 4px;
-}
-
 
 
 
