@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
+/* Убираем подсветку нажатия на кнопки на мобильных устройствах */
+button, .tab-btn, .game-tabs .tab {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
 
+button:focus, .tab-btn:focus, .game-tabs .tab:focus {
+  outline: none;
+}
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -71,37 +79,104 @@ body {
   color: white;
 }
 
+
+/* Обёртка с прозрачным фоном и границей */
+.balance-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Расстояние между иконкой, текстом и кнопкой */
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.5); /* Полупрозрачная белая граница */
+  border-radius: 999px;
+  padding: 6px 10px;
+  backdrop-filter: blur(4px); /* по желанию, если хочешь стекло-эффект */
+}
+
+/* Иконка кошелька */
+.wallet-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Баланс */
+.wallet-amount {
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+/* Кнопка "+" в том же стиле */
 #topup-button {
-  background: white;
-  color: #000;
+  background: #28a745; /* ярко-зелёный */
+  color: white;
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   font-weight: bold;
-  cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   padding: 0;
 }
 
-/* Баннер */
 .lobby-banner {
   position: relative;
   width: 100%;
-  height: 160px; /* можно настроить */
+  height: 450px;
   overflow: hidden;
+}
+
+.lobby-banner .slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lobby-banner .slide.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .promo-banner {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0; /* убираем скругление */
-  box-shadow: none; /* убираем тень */
+  border-radius: 0;
+  box-shadow: none;
+  user-select: none;
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.slider-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffffff88; /* Полупрозрачная */
+  transition: background-color 0.3s ease;
+}
+
+.slider-dots .dot.active {
+  background-color: #ffffff; /* Яркая белая точка */
 }
 
 /* Вкладки игр */

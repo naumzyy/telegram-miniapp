@@ -21,17 +21,35 @@
 <!-- ВЕРХНЯЯ ПАНЕЛЬ + БАННЕР -->
 <div id="lobbie-header">
   <div class="lobby-banner">
-    <img src="icons/banner.jpg" alt="promo" class="promo-banner" />
+  <a href="#" class="slide active" target="_blank">
+    <img src="./icons/open.jpg" alt="We are Open" class="promo-banner" />
+  </a>
+  <a href="#" class="slide" target="_blank">
+    <img src="./icons/friends.jpg" alt="Invite Friends" class="promo-banner" />
+  </a>
+  <a href="#" class="slide" target="_blank">
+    <img src="./icons/stars.jpg" alt="Top Up Telegram Stars" class="promo-banner" />
+  </a>
+
+  <!-- Индикаторы -->
+  <div class="slider-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
   </div>
+</div>
   <div class="top-bar">
     <div class="user-info">
       <div class="avatar"></div>
       <h2 class="username">David</h2>
     </div>
     <div class="balance">
-      <span>$106</span>
-      <button id="topup-button">+</button>
-    </div>
+  <div class="balance-wrapper">
+    <img src="./icons/icons8-wallet-48.png" alt="Wallet" class="wallet-icon" />
+    <span class="wallet-amount">$106</span>
+    <button id="topup-button">+</button>
+  </div>
+</div>
   </div>
 </div>
 
@@ -160,6 +178,32 @@
     const index = ['poker', 'blackjack', 'durak'].indexOf(game);
     document.querySelectorAll('.game-tabs .tab')[index].classList.add('active');
   }
+
+
+  (function() {
+  const slides = document.querySelectorAll('.lobby-banner .slide');
+  const dots = document.querySelectorAll('.slider-dots .dot');
+  let currentIndex = 0;
+  const slideCount = slides.length;
+  const interval = 4000; // 4 секунды
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    showSlide(currentIndex);
+  }
+
+  setInterval(nextSlide, interval);
+})();
 </script>
 
 </body>
