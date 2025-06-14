@@ -358,6 +358,27 @@ body {
   to { opacity: 0.9; }
 }
 
+/* Скрытие горизонтального скролла и стилизация вертикального */
+html, body {
+  overflow-x: hidden;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox */
+}
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 4px; /* Тонкий скролл */
+  height: 0px; /* Убирает горизонтальный скролл, если появляется */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.05); /* Едва заметный ползунок */
+  border-radius: 4px;
+}
 
 
 
